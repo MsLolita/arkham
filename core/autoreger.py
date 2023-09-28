@@ -90,7 +90,7 @@ class AutoReger:
     def custom_delay():
         if CUSTOM_DELAY[1] > 0:
             sleep_time = random.uniform(CUSTOM_DELAY[0], CUSTOM_DELAY[1])
-            logger.info(f"Sleep for {int(sleep_time):.2f} seconds")
+            logger.info(f"Sleep for {sleep_time:.2f} seconds")
             time.sleep(sleep_time)
 
     @staticmethod
