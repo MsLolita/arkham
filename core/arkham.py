@@ -85,10 +85,12 @@ class Arkham(MailUtils, CustomFaker):
             'password': self.password,
             'username': self.username,
             'displayName': self.name,
-            'referrer': Arkham.referral,
             '_botpoison': '',
             'verificationCode': verify_code,
         }
+
+        if Arkham.referral:
+            json_data['referrer'] = Arkham.referral
 
         response = self.send_request("post", url, json_data=json_data)
 
