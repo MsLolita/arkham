@@ -81,7 +81,7 @@ class AutoReger:
         self.remove_account()
 
         if is_ok:
-            arkham.logs("success")
+            arkham.logs("success", " | Registered")
             self.success += 1
         else:
             arkham.logs("fail")

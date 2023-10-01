@@ -1,6 +1,4 @@
-import random
 import time
-import string
 
 from imap_tools import MailBox, AND
 from loguru import logger
@@ -14,13 +12,17 @@ class MailUtils:
         self.domain = self.parse_domain()
 
     def get_msg(self, to=None, subject=None, from_=None, seen=None, limit=None, reverse=True, delay=60):
-        time.sleep(3)
         with MailBox(self.domain).login(self.email, self.imap_pass) as mailbox:
+            time.sleep(3)
+            # responses = mailbox.idle.wait(timeout=60)
             for _ in range(delay // 3):
                 try:
                     time.sleep(3)
-                    for msg in mailbox.fetch(AND(to=to, subject=subject, from_=from_,
+                    for msg in mailbox.fetch(AND(to=to, from_=from_,
                                                  seen=seen), limit=limit, reverse=reverse):
+                        if subject is not None:
+                            if msg.subject != subject:
+                                continue
 
                         logger.success(f'{self.email} | Successfully received msg: {msg.subject}')
                         return {"success": True, "msg": msg.text}
